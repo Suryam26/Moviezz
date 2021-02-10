@@ -7,12 +7,25 @@ import InfoCard from "./Card";
 
 
 class Search extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { value : '' };
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({
+            value: event.target.value
+        });
+    }
+
     render() {
         return (
             <>
                 <Navbar color="dark">
                     <Container>
-                        <Input type="text" placeholder="Search" className="col mx-2" />
+                        <Input type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search" className="col mx-2" />
                         <Link to="/wishlist">
                             <Button>
                                <FontAwesomeIcon icon={ faBookmark } />  WishList

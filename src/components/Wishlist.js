@@ -5,22 +5,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import InfoCard from "./Card";
 
+const Navigation = () => {
+    return (
+        <Navbar color="dark">
+            <Container>
+                <Link to="/" className="ml-auto">
+                    <Button>
+                        <FontAwesomeIcon icon={faArrowLeft} />  Search
+                    </Button>  
+                </Link>
+            </Container>
+        </Navbar>
+    );
+}
+
 
 class WishList extends React.Component {
     render() {
         return (
             <>
-                <Navbar color="dark">
-                    <Container>
-                        <Link to="/" className="ml-auto">
-                            <Button>
-                                <FontAwesomeIcon icon={faArrowLeft} />  Search
-                            </Button>  
-                        </Link>
-                    </Container>
-                </Navbar>
-
-                
+                <Navigation />
                 <Container>
                     <Row>
                         <InfoCard />
