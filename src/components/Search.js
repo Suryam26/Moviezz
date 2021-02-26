@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Navbar, Input, Button, Row, Col } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faSearch } from '@fortawesome/free-solid-svg-icons';
 import InfoCard from "./Card";
 
 
@@ -15,6 +15,7 @@ class Search extends React.Component {
         };
         
         this.handleChange = this.handleChange.bind(this);
+        this.submit = this.submit.bind(this);
         this.getMovies = this.getMovies.bind(this);
     }
 
@@ -22,6 +23,9 @@ class Search extends React.Component {
         this.setState({
             value: event.target.value
         });
+    }
+
+    submit() {
         this.getMovies(this.state.value);
     }
 
@@ -46,8 +50,11 @@ class Search extends React.Component {
                 <Navbar color="dark">
                     <Container>
                         <Input type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search" className="col mx-2" />
+                        <Button className="mx-2" onClick={this.submit} >
+                           <FontAwesomeIcon icon={ faSearch } />  Search
+                        </Button>
                         <Link to="/wishlist">
-                            <Button>
+                            <Button className="mx-2">
                                <FontAwesomeIcon icon={ faBookmark } />  WishList
                             </Button>
                         </Link>
@@ -57,7 +64,7 @@ class Search extends React.Component {
                 <Container>
                     <Row>
                         {this.state.Movies.map(movie => (
-                                <Col key={movie.id} sm="12" md="6" lg="4" className="my-3 mx-auto">
+                                <Col key={movie.id} sm="12" md="6" lg="4" className="my-3">
                                     <InfoCard movie={movie} />
                                 </Col>
                         ))}
