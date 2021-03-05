@@ -1,22 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Container, Navbar, Input, Button, Row, Col } from "reactstrap";
+import { Container, Navbar, Input, Button, Form } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faSearch } from '@fortawesome/free-solid-svg-icons';
-import InfoCard from "./Card";
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Display from "./Display";
 
-
-class Search extends React.Component {
+class SearchBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            value: '',
-            Movies : [],
-        };
-        
+        this.state = { value: '' };
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
-        this.getMovies = this.getMovies.bind(this);
     }
 
     handleChange(event) {
@@ -25,12 +18,50 @@ class Search extends React.Component {
         });
     }
 
-    submit() {
-        this.getMovies(this.state.value);
+    submit(event) {
+        event.preventDefault();
+        this.props.getMovies(this.state.value);
+    }
+
+    render() {
+        return (
+            <Navbar color="dark" dark>
+                <Container>
+                    <Form className="col p-0" onSubmit={this.submit} inline >
+                        <Input type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search" className="col" />
+                        <Button className="mx-2" type="submit" >
+                            <FontAwesomeIcon icon={ faSearch } />  Search
+                        </Button>
+                    </Form>
+                </Container>               
+            </Navbar>
+        );
+    }
+}
+
+
+class Search extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { Movies : [] };
+        this.getMovies = this.getMovies.bind(this);
+        this.getTrend = this.getTrend.bind(this);
+    }
+
+    componentDidMount() {
+        this.getTrend();
+    }
+
+    async getTrend() {
+        const response = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_API_KEY}`);
+        const data = await response.json();
+        this.setState({
+            Movies : data.results,
+        })
     }
 
     async getMovies(query) {
-        if (query.length > 1) {
+        if (query) {
             const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${query}`);
             const data = await response.json();
             this.setState({
@@ -38,38 +69,19 @@ class Search extends React.Component {
             })
         }
         else{
-           this.setState({
-                Movies : [],
-            }) 
+            const response = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.REACT_APP_API_KEY}`);
+            const data = await response.json();
+            this.setState({
+                Movies : data.results,
+            })
         }
-  }
+    }
 
     render() {
         return (
             <>
-                <Navbar color="dark">
-                    <Container>
-                        <Input type="text" value={this.state.value} onChange={this.handleChange} placeholder="Search" className="col mx-2" />
-                        <Button className="mx-2" onClick={this.submit} >
-                           <FontAwesomeIcon icon={ faSearch } />  Search
-                        </Button>
-                        <Link to="/wishlist">
-                            <Button className="mx-2">
-                               <FontAwesomeIcon icon={ faBookmark } />  WishList
-                            </Button>
-                        </Link>
-                    </Container>               
-                </Navbar>
-
-                <Container>
-                    <Row>
-                        {this.state.Movies.map(movie => (
-                                <Col key={movie.id} sm="12" md="6" lg="4" className="my-3">
-                                    <InfoCard movie={movie} />
-                                </Col>
-                        ))}
-                    </Row>
-                </Container>
+                <SearchBar getMovies={(query) => this.getMovies(query) } />
+                <Display movies={ this.state.Movies } add={(movie) => this.props.add(movie)} remove={(id) => this.props.remove(id)} />
             </>
         );
     }

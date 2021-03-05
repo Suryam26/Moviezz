@@ -1,3 +1,24 @@
 .card {
   border-radius: 0.5rem;
+  height: 80vh;
+}
+
+.card-body {
+  position: relative;
+}
+
+.card-text {
+  color: antiquewhite;
+  height: 40%;
+  overflow: hidden;
+}
+
+.card-body button {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+}
+
+img {
+  height: 60%;
 }
