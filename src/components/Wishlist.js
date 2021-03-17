@@ -8,7 +8,10 @@ class WishList extends React.Component {
     render() {
         return (
             <>
-                <Display movies={this.props.list} add={(movie) => this.props.add(movie)} remove={(id) => this.props.remove(id)} />
+                <Display
+                    movies={this.props.list}
+                    message="Your Wishlist"
+                />
             </>
         );
     }

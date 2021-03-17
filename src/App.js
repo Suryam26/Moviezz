@@ -36,13 +36,26 @@ class App extends React.Component {
   }
 
   render() {
+
+    const searchQuery = ({ match }) => {
+      const param = match.params.query ? match.params.query : null;
+      return (
+        <Search
+          query={param}
+          add={(movie) => this.add(movie)}
+          remove={(id) => this.remove(id)}
+        />
+      );
+    };
+    
     return (
       <main>
         <Navigation />
         <Switch>
-          <Route path="/" component={() => <Search listIndex={this.state.wishListIndex} add={(movie) => this.add(movie)} remove={(id) => this.remove(id)} />} exact />
-          <Route path="/wishlist" component={() => <WishList list={this.state.wishList} add={(movie) => this.add(movie)} remove={(id) => this.remove(id)} />} />
-          <Redirect to="/" />   
+          <Route path="/home" component={searchQuery} />
+          <Route path="/search/:query" component={searchQuery} />
+          <Route path="/wishlist" component={() => <WishList list={this.state.wishList} />} />
+          <Redirect to="/home" />   
          </Switch>
       </main>
     );
