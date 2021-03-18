@@ -5,8 +5,8 @@ import {  Card, CardImg, CardText, CardBody,
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 
-const InfoCard = ({ movie }) => {
-        return (
+const InfoCard = ({ movie, add, remove }) => {
+    return (
             <Card color="dark">
                 {/* <a href={`https://api.themoviedb.org/3/movie/${ movie.id }?api_key=${ process.env.REACT_APP_API_KEY }&language=en-US`}></a> */}
                 <CardImg top width="100%" src={`https://image.tmdb.org/t/p/w300/${ movie.poster_path }`} alt={ movie.title } />
@@ -19,12 +19,12 @@ const InfoCard = ({ movie }) => {
                     {/* <Button className="px-3" type="button" onClick={remove}>
                             <FontAwesomeIcon icon={faBookmark} />
                     </Button>  */}
-                    <Button className="px-3" type="button">
+                    <Button className="px-3" type="button" onClick={add} >
                         <FontAwesomeIcon icon={faBookmark} />
                     </Button>
                 </CardBody>
-            </Card>            
-        );
+            </Card>
+    );
 }
 
 export default InfoCard;

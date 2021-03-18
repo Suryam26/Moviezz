@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import InfoCard from "./Card";
+import wishlistContext from "../context/wishlistContext";
 
 const Display = ({ movies, message }) => {
     let willDisplay = movies.length > 0 ? true : false;
@@ -8,9 +9,16 @@ const Display = ({ movies, message }) => {
     
     const list = movies.map(movie => (
         <Col key={movie.id} sm="12" md="6" lg="4" className="my-3">
-            <InfoCard
-                movie={movie}
-            />
+            <wishlistContext.Consumer>
+                {
+                    value =>
+                    <InfoCard
+                        movie={movie}
+                        add={() => value.add(movie)}
+                        remove={() => value.remove(movie.id)}
+                    />
+                }
+            </wishlistContext.Consumer>
         </Col>
     ));
     

@@ -1,15 +1,13 @@
 import React from "react";
 import Display from "./Display";
+import wishlistContext from "../context/wishlistContext";
 
 class WishList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
             <>
                 <Display
-                    movies={this.props.list}
+                    movies={this.context.wishlist}
                     message="Your Wishlist"
                 />
             </>
@@ -17,4 +15,5 @@ class WishList extends React.Component {
     }
 }
 
+WishList.contextType = wishlistContext;
 export default WishList;
