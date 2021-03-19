@@ -4,8 +4,19 @@ import {  Card, CardImg, CardText, CardBody,
 } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import { faBookmark as faBookmarkSolid} from '@fortawesome/free-solid-svg-icons';
 
-const InfoCard = ({ movie, add, remove }) => {
+const InfoCard = ({ movie, add, remove, check }) => {
+    const addButton =
+        <Button className="px-3" type="button" onClick={add} >
+            <FontAwesomeIcon icon={faBookmark} />
+        </Button>;
+    
+    const removeButton =
+        <Button className="px-3" type="button" onClick={remove}>
+            <FontAwesomeIcon icon={faBookmarkSolid} />
+        </Button>;
+    
     return (
             <Card color="dark">
                 {/* <a href={`https://api.themoviedb.org/3/movie/${ movie.id }?api_key=${ process.env.REACT_APP_API_KEY }&language=en-US`}></a> */}
@@ -16,12 +27,7 @@ const InfoCard = ({ movie, add, remove }) => {
                     </a>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">Release Date: { movie.release_date }</CardSubtitle>
                     <CardText>{movie.overview}</CardText>
-                    {/* <Button className="px-3" type="button" onClick={remove}>
-                            <FontAwesomeIcon icon={faBookmark} />
-                    </Button>  */}
-                    <Button className="px-3" type="button" onClick={add} >
-                        <FontAwesomeIcon icon={faBookmark} />
-                    </Button>
+                    {check ? removeButton : addButton}
                 </CardBody>
             </Card>
     );

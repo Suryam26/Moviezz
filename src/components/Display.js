@@ -16,6 +16,7 @@ const Display = ({ movies, message }) => {
                         movie={movie}
                         add={() => value.add(movie)}
                         remove={() => value.remove(movie.id)}
+                        check={value.check(movie.id)}   
                     />
                 }
             </wishlistContext.Consumer>

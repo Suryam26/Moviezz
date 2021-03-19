@@ -10,13 +10,7 @@ class App extends React.Component {
   render() {
     const searchQuery = ({ match }) => {
       const param = match.params.query ? match.params.query : null;
-      return (
-        <Search
-          query={param}
-          add={(movie) => this.add(movie)}
-          remove={(id) => this.remove(id)}
-        />
-      );
+      return <Search query={param} />;
     };
     
     return (
