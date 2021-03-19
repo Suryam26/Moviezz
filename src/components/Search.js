@@ -13,7 +13,8 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
-        this.getMovies(this.props.query);
+        const param = this.props.match.params.query ? this.props.match.params.query : null;
+        this.getMovies(param);
     }
 
     async getMovies(query) {

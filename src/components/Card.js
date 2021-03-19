@@ -17,6 +17,7 @@ const InfoCard = ({ movie, add, remove, check }) => {
             <FontAwesomeIcon icon={faBookmarkSolid} />
         </Button>;
     
+    const overview = movie.overview.length > 90 ? movie.overview.slice(0, 87) + '...' : movie.overview;
     return (
             <Card color="dark">
                 {/* <a href={`https://api.themoviedb.org/3/movie/${ movie.id }?api_key=${ process.env.REACT_APP_API_KEY }&language=en-US`}></a> */}
@@ -26,7 +27,7 @@ const InfoCard = ({ movie, add, remove, check }) => {
                         <CardTitle tag="h5">{ movie.title }</CardTitle>
                     </a>
                     <CardSubtitle tag="h6" className="mb-2 text-muted">Release Date: { movie.release_date }</CardSubtitle>
-                    <CardText>{movie.overview}</CardText>
+                    <CardText>{overview}</CardText>
                     {check ? removeButton : addButton}
                 </CardBody>
             </Card>
