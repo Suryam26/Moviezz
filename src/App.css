@@ -1,24 +1,33 @@
 .card {
   border-radius: 0.5rem;
-  height: 80vh;
 }
 
-.card-body {
-  position: relative;
+.card img {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
 }
 
-.card-text {
-  color: antiquewhite;
-  height: 40%;
+#search .card-title {
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.card-body button {
+#search .card-body button {
+  float: right;
+}
+
+#title {
   position: absolute;
-  right: 1.25rem;
-  bottom: 1.25rem;
+  bottom: 0;
 }
 
-img {
-  height: 60%;
+#top {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#bottom {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

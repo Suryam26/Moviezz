@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Search from "./components/Search";
 import WishList from "./components/Wishlist";
 import Navigation from "./components/Navigation";
+import Detail from "./components/Detail";
 import WishlistState from "./context/wishlistState";
 import './App.css';
 
@@ -16,6 +17,7 @@ class App extends React.Component {
             <Route path="/home" component={Search} />
             <Route path="/search/:query" component={Search} />
             <Route path="/wishlist" component={WishList} />
+            <Route path="/detail/:movieId" component={Detail} />
             <Redirect to="/home" /> 
           </Switch>
         </WishlistState>

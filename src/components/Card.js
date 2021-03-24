@@ -1,14 +1,32 @@
 import React from "react";
 import {  Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
+    CardTitle, CardSubtitle, Button, CardFooter
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSolid} from '@fortawesome/free-solid-svg-icons';
 
 const InfoCard = ({ movie, add, remove, check }) => {
+    const months = {
+        "01": "Jan",
+        "02": "Feb",
+        "03": "Mar",
+        "04": "Apr",
+        "05": "May",
+        "06": "Jun",
+        "07": "Jul",
+        "08": "Aug",
+        "09": "Sep",
+        "10": "Oct",
+        "11": "Nov",
+        "12": "Dec"
+    };
+    const newDate = movie.release_date.split("-");
+    const date = `${newDate[2]} ${months[newDate[1]]} ${newDate[0]}`;
+
     const addButton =
-        <Button className="px-3" type="button" onClick={add} >
+        <Button className="mr-0 px-3" type="button" onClick={add} >
             <FontAwesomeIcon icon={faBookmark} />
         </Button>;
     
@@ -17,20 +35,21 @@ const InfoCard = ({ movie, add, remove, check }) => {
             <FontAwesomeIcon icon={faBookmarkSolid} />
         </Button>;
     
-    const overview = movie.overview.length > 90 ? movie.overview.slice(0, 87) + '...' : movie.overview;
+    const overview = movie.overview.length > 100 ? movie.overview.slice(0, 97) + '...' : movie.overview;
     return (
-            <Card color="dark">
-                {/* <a href={`https://api.themoviedb.org/3/movie/${ movie.id }?api_key=${ process.env.REACT_APP_API_KEY }&language=en-US`}></a> */}
-                <CardImg top width="100%" src={`https://image.tmdb.org/t/p/w300/${ movie.poster_path }`} alt={ movie.title } />
-                <CardBody>
-                    <a href={`https://api.themoviedb.org/3/movie/${ movie.id }?api_key=${ process.env.REACT_APP_API_KEY }&language=en-US`}>
-                        <CardTitle tag="h5">{ movie.title }</CardTitle>
-                    </a>
-                    <CardSubtitle tag="h6" className="mb-2 text-muted">Release Date: { movie.release_date }</CardSubtitle>
-                    <CardText>{overview}</CardText>
-                    {check ? removeButton : addButton}
-                </CardBody>
-            </Card>
+        <Card id="search" color="dark" inverse>
+            <Link to={`/detail/${movie.id}`}>
+                <CardImg top width="100%" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt={movie.title} />
+            </Link>
+            <CardBody>
+                <Link to={`/detail/${movie.id}`}>
+                    <CardTitle tag="h5">{ movie.title }</CardTitle>
+                </Link>
+                <CardSubtitle tag="h6" className="mb-2 text-muted">Release Date: { date }</CardSubtitle>
+                <CardText>{overview}</CardText>
+                {check ? removeButton : addButton}
+            </CardBody>
+        </Card>
     );
 }
 
